@@ -18,6 +18,7 @@ const bottomRight = document.querySelector("#bottomright");
 const strictButton = document.querySelector("#strict");
 const onButton = document.querySelector("#on");
 const startButton = document.querySelector("#start");
+const btns=document.querySelectorAll(".btn");
 
 strictButton.addEventListener('click', (event) => {
   if (strictButton.checked == true) {
@@ -90,7 +91,8 @@ function one() {
     audio.play();
   }
   noise = true;
-  topLeft.style.backgroundColor = "lightgreen";
+  
+  topLeft.classList.add('flash');
 }
 
 function two() {
@@ -99,7 +101,8 @@ function two() {
     audio.play();
   }
   noise = true;
-  topRight.style.backgroundColor = "tomato";
+ 
+  topRight.classList.add('flash');
 }
 
 function three() {
@@ -108,7 +111,8 @@ function three() {
     audio.play();
   }
   noise = true;
-  bottomLeft.style.backgroundColor = "yellow";
+
+ bottomLeft.classList.add('flash');
 }
 
 function four() {
@@ -117,21 +121,19 @@ function four() {
     audio.play();
   }
   noise = true;
-  bottomRight.style.backgroundColor = "lightskyblue";
+  bottomRight.classList.add('flash');
+ 
 }
 
 function clearColor() {
-  topLeft.style.backgroundColor = "darkgreen";
-  topRight.style.backgroundColor = "darkred";
-  bottomLeft.style.backgroundColor = "goldenrod";
-  bottomRight.style.backgroundColor = "darkblue";
+  btns.forEach((el)=>el.classList.remove('flash'));
+
 }
 
 function flashColor() {
-  topLeft.style.backgroundColor = "lightgreen";
-  topRight.style.backgroundColor = "tomato";
-  bottomLeft.style.backgroundColor = "yellow";
-  bottomRight.style.backgroundColor = "lightskyblue";
+ 
+  btns.forEach((el)=>el.classList.add('flash'));
+
 }
 
 topLeft.addEventListener('click', (event) => {
