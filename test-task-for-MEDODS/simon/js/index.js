@@ -19,6 +19,8 @@ const strictButton = document.querySelector("#strict");
 const onButton = document.querySelector("#on");
 const startButton = document.querySelector("#start");
 const btns=document.querySelectorAll(".btn");
+const aud=document.querySelectorAll(".audio");
+const circle=document.querySelector("#outer-circle");
 
 strictButton.addEventListener('click', (event) => {
   if (strictButton.checked == true) {
@@ -57,6 +59,7 @@ function play() {
   good = true;
   for (var i = 0; i < 20; i++) {
     order.push(Math.floor(Math.random() * 4) + 1);
+    console.log(order);
   }
   compTurn = true;
 
@@ -76,53 +79,13 @@ function gameTurn() {
   if (compTurn) {
     clearColor();
     setTimeout(() => {
-      if (order[flash] == 1) one();
-      if (order[flash] == 2) two();
-      if (order[flash] == 3) three();
-      if (order[flash] == 4) four();
+      if (order[flash] == 1) {playmusic(1),topLeft.classList.add('flash')};
+      if (order[flash] == 2) {playmusic(2),topRight.classList.add('flash')};
+      if (order[flash] == 3) {playmusic(3),bottomLeft.classList.add('flash')};
+      if (order[flash] == 4) {playmusic(4),bottomRight.classList.add('flash')};
       flash++;
     }, 200);
   }
-}
-
-function one() {
-  if (noise) {
-    let audio = document.getElementById("clip1");
-    audio.play();
-  }
-  noise = true;
-  
-  topLeft.classList.add('flash');
-}
-
-function two() {
-  if (noise) {
-    let audio = document.getElementById("clip2");
-    audio.play();
-  }
-  noise = true;
- 
-  topRight.classList.add('flash');
-}
-
-function three() {
-  if (noise) {
-    let audio = document.getElementById("clip3");
-    audio.play();
-  }
-  noise = true;
-
- bottomLeft.classList.add('flash');
-}
-
-function four() {
-  if (noise) {
-    let audio = document.getElementById("clip4");
-    audio.play();
-  }
-  noise = true;
-  bottomRight.classList.add('flash');
- 
 }
 
 function clearColor() {
@@ -136,57 +99,45 @@ function flashColor() {
 
 }
 
-topLeft.addEventListener('click', (event) => {
-  if (on) {
-    playerOrder.push(1);
-    check();
-    one();
-    if(!win) {
-      setTimeout(() => {
-        clearColor();
-      }, 300);
-    }
-  }
-})
 
-topRight.addEventListener('click', (event) => {
-  if (on) {
-    playerOrder.push(2);
-    check();
-    two();
-    if(!win) {
-      setTimeout(() => {
-        clearColor();
-      }, 300);
+function playmusic(id){
+  if (noise) {
+    let audio = document.getElementById("clip4");
+      audio.play();
     }
-  }
-})
+   
+  
+  noise = true;
+ 
+  
+}
 
-bottomLeft.addEventListener('click', (event) => {
-  if (on) {
-    playerOrder.push(3);
-    check();
-    three();
-    if(!win) {
-      setTimeout(() => {
-        clearColor();
-      }, 300);
-    }
-  }
-})
 
-bottomRight.addEventListener('click', (event) => {
-  if (on) {
-    playerOrder.push(4);
-    check();
-    four();
-    if(!win) {
-      setTimeout(() => {
-        clearColor();
-      }, 300);
-    }
-  }
+
+
+
+btns.forEach((el=>el.addEventListener("click", (event)=>{
+
+    if (on) {
+     let id=el.dataset.id;
+      playerOrder.push(id);
+      console.log(playerOrder);
+      check();
+playmusic();
+el.classList.add('flash');
+      if(!win) {
+        setTimeout(() => {
+          clearColor();
+        }, 300);
+      }
+  
+ }
 })
+))
+
+
+
+
 
 function check() {
   if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1])
